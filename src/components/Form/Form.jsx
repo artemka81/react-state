@@ -5,6 +5,8 @@ class Form extends Component {
   state = {
     name: '',
     nickName: '',
+    experience: 'junior',
+    subscription: false,
   };
 
   // Обновление значений в input
@@ -25,6 +27,11 @@ class Form extends Component {
     this.props.saveDate(this.state);
     // Вызываем метод очищения формы
     this.reset();
+  };
+
+  handleSubscriptionChange = e => {
+    console.log(e.currentTarget.checked);
+    this.setState({ subscription: e.currentTarget.checked });
   };
   // Очищаем форму после сабмита
   reset = () => {
@@ -57,7 +64,56 @@ class Form extends Component {
             onChange={this.handleChange}
           />
         </label>
-        <button type="submit">Submit</button>
+        <p>Your level:</p>
+        <label>
+          <input
+            type="radio"
+            name="experience"
+            value="junior"
+            onChange={this.handleChange}
+            checked={this.state.experience === 'junior'}
+          />
+          Junior
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="experience"
+            value="middle"
+            onChange={this.handleChange}
+            checked={this.state.experience === 'middle'}
+          />
+          Middle
+        </label>
+        <br />
+        <label>
+          <input
+            type="radio"
+            name="experience"
+            value="senior"
+            onChange={this.handleChange}
+            checked={this.state.experience === 'senior'}
+          />
+          Senior
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            name="subscription"
+            checked={this.state.subscription}
+            onChange={this.handleSubscriptionChange}
+          />
+          Да, я хочу подписаться на рассылку
+        </label>
+        <br />
+        <br />
+        <button type="submit" disabled={!this.state.subscription}>
+          Submit
+        </button>
+        <br />
+        <br />
       </form>
     );
   }
